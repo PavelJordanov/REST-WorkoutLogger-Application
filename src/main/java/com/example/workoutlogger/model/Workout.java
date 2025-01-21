@@ -1,7 +1,8 @@
 package com.example.workoutlogger.model;
 
 import java.util.ArrayList;
-import com.example.workoutlogger.model.Exercise;
+import java.util.List;
+
 
 public class Workout {
     private String id;
@@ -33,11 +34,11 @@ public class Workout {
         this.name = name;
     }
 
-    public ArrayList<Exercise> getExercises() {
+    public List<Exercise> getExercises() {
         return this.exercises;
     }
 
-    public void setExercises(ArrayList<Exercise> exercises) {
+    public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
     }
 
