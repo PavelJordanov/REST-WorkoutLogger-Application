@@ -6,14 +6,22 @@ CREATE TABLE exercise
     reps int not null,
     weight float not null,
     workout varchar(255) not null,
+    done Boolean not null,
     primary key(id),
-    UNIQUE(sets, reps, weight)
+    UNIQUE(name, sets, reps, weight, workout)
 );
 
 CREATE TABLE workout
 (
     id varchar(255) not null,
     name varchar(255) not null,
+    done Boolean not null,
     primary key(id)
 );
 
+CREATE TABLE week
+(
+    id varchar(255) not null,
+    done Boolean not null,
+    primary key(id)
+);
