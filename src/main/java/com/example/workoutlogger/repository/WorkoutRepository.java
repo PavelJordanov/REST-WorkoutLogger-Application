@@ -22,6 +22,7 @@ public class WorkoutRepository {
             Workout workout = new Workout();
             workout.setId(rs.getString("id"));
             workout.setName(rs.getString("name"));
+            workout.setDone(rs.getBoolean("done"));
             return workout;
         }
     }
@@ -40,14 +41,14 @@ public class WorkoutRepository {
     }
     
     public int insert(Workout workout) {
-        return jdbcTemplate.update("INSERT INTO workout (id, name) VALUES (?, ?)", 
-        workout.getId(), workout.getName());
+        return jdbcTemplate.update("INSERT INTO workout (id, name, done) VALUES (?, ?, ?)", 
+        workout.getId(), workout.getName(), workout.getDone());
     }
 
     public int update(Workout workout) {
         return jdbcTemplate.update(
-            "UPDATE workouts SET name = ? WHERE id = ?",
-            workout.getName(), workout.getId());
+            "UPDATE workouts SET name = ?, done = ? WHERE id = ?",
+            workout.getName(), workout.getDone(), workout.getId());
     }
 
 }

@@ -7,15 +7,17 @@ import java.util.List;
 public class Workout {
     private String id;
     private String name;
+    private Boolean done;
     
     // Create array list of exercises that our workout will contain
     List<Exercise> exercises = new ArrayList<>();
 
     public Workout() {}
 
-    public Workout(String id, String name) {
+    public Workout(String id, String name, Boolean done) {
         this.id = id;
         this.name = name;
+        this.done = false;
     }
 
     public String getId() {
@@ -50,12 +52,21 @@ public class Workout {
             exercises.remove(exercise);
     }
 
+    public Boolean getDone() {
+        return this.done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", name='" + getName() + "'" +
             ", exercises='" + getExercises() + "'" +
+            ", done='" + getDone() + "'" +
             "}";
     }
 }

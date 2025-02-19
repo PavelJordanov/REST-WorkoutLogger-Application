@@ -11,5 +11,6 @@ public interface WorkoutService {
     public void deleteById(String id);
     public int insert(Workout workout);
     public int update(Workout workout);
+    void markWorkoutAsDone(String id);
 
 }
