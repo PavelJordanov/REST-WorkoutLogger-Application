@@ -34,7 +34,20 @@ public class WorkoutServiceImpl implements WorkoutService{
         return result;
     }
 
+    @Override
     public int update(Workout workout) {
         return workoutRepository.update(workout);
+    }
+    
+    @Override
+    public void markWorkoutAsDone(String id) {
+        Workout workout = workoutRepository.findById(id);
+
+        if (workout.canBeMarkedAsDone()) {
+            workout.setDone(true);
+            workoutRepository.update(workout);
+        } else {
+            throw new IllegalStateException("Not all exercises are done yet!");
+        }
     }
 }

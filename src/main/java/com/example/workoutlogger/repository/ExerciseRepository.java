@@ -25,7 +25,6 @@ public class ExerciseRepository {
             exercise.setSets(rs.getInt("sets"));
             exercise.setReps(rs.getInt("reps"));
             exercise.setWeight(rs.getFloat("weight"));
-            exercise.setWorkout(rs.getString("workout"));
             exercise.setDone(rs.getBoolean("done"));
             return exercise;
         }
@@ -45,15 +44,15 @@ public class ExerciseRepository {
     }
     
     public int insert(Exercise exercise) {
-        return jdbcTemplate.update("INSERT INTO exercises (id, name, sets, reps, weight, workout, done) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+        return jdbcTemplate.update("INSERT INTO exercises (id, name, sets, reps, weight, done) VALUES (?, ?, ?, ?, ?, ?)", 
         exercise.getId(), exercise.getName(), exercise.getSets(), exercise.getReps(), 
-        exercise.getWeight(), exercise.getWorkout(), exercise.getDone());
+        exercise.getWeight(), exercise.getDone());
     }
 
     public int update(Exercise exercise) {
         return jdbcTemplate.update(
-            "UPDATE exercises SET name = ?, sets = ?, reps = ?, weight = ?, workout = ?, done = ? WHERE id = ?",
-            exercise.getName(), exercise.getSets(), exercise.getReps(), exercise.getWeight(),
-            exercise.getWorkout(), exercise.getDone(), exercise.getId());
+            "UPDATE exercises SET name = ?, sets = ?, reps = ?, weight = ?, done = ? WHERE id = ?",
+            exercise.getName(), exercise.getSets(), exercise.getReps(), exercise.getWeight(), 
+            exercise.getDone(), exercise.getId());
     }
 }

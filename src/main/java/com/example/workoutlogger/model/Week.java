@@ -25,17 +25,12 @@ public class Week {
         this.done = false;
     }
 
-
     public String getId() {
         return this.id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Boolean isDone() {
-        return this.done;
     }
 
     public Boolean getDone() {
@@ -54,11 +49,15 @@ public class Week {
         this.workouts = workouts;
     }
 
+    public boolean canBeMarkedAsDone() {
+        return workouts.stream().allMatch(Workout::getDone);
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", done='" + isDone() + "'" +
+            ", done='" + getDone() + "'" +
             ", workouts='" + getWorkouts() + "'" +
             "}";
     }

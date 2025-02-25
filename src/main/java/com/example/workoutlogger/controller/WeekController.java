@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 @RequestMapping("/week")
 public class WeekController {
+    
     @Autowired
     WeekService weekService;
 

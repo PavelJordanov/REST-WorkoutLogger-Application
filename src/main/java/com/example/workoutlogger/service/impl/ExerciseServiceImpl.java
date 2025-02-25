@@ -29,5 +29,14 @@ public class ExerciseServiceImpl implements ExerciseService{
         exerciseRepository.deleteById(id);
     }
 
+    public int insert(Exercise exercise) {
+        int result = exerciseRepository.insert(exercise);
 
+        return result;
+    }
+
+    @Override
+    public int update(Exercise exercise) {
+        return exerciseRepository.update(exercise);
+    }
 }

@@ -60,6 +60,10 @@ public class Workout {
         this.done = done;
     }
 
+    public boolean canBeMarkedAsDone() {
+        return exercises.stream().allMatch(Exercise::getDone);
+    }
+
     @Override
     public String toString() {
         return "{" +

@@ -6,17 +6,17 @@ public class Exercise {
     private int sets;
     private int reps;
     private float weight;
-    private String workout;
+    private Boolean done;
 
     public Exercise() {}
 
-    public Exercise(String id, String name, int sets, int reps, float weight, String workout) {
+    public Exercise(String id, String name, int sets, int reps, float weight, Boolean done) {
         this.id = id;
         this.name = name;
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;
-        this.workout = workout;
+        this.done = false;
     }
 
     public String getId() {
@@ -59,12 +59,12 @@ public class Exercise {
         this.weight = weight;
     }
 
-    public String getWorkout() {
-        return this.workout;
+    public Boolean getDone() {
+        return this.done;
     }
 
-    public void setWorkout(String workout) {
-        this.workout = workout;
+    public void setDone(Boolean done) {
+        this.done = done;
     }
 
     @Override
@@ -75,6 +75,7 @@ public class Exercise {
             ", sets='" + getSets() + "'" +
             ", reps='" + getReps() + "'" +
             ", weight='" + getWeight() + "'" +
+            ", done='" + getDone() + "'" +
             "}";
     }
 }
