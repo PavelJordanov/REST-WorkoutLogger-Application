@@ -6,11 +6,11 @@ public class Exercise {
     private int sets;
     private int reps;
     private float weight;
-    private Boolean done;
+    private boolean done;
 
     public Exercise() {}
 
-    public Exercise(String id, String name, int sets, int reps, float weight, Boolean done) {
+    public Exercise(String id, String name, int sets, int reps, float weight, boolean done) {
         this.id = id;
         this.name = name;
         this.sets = sets;
@@ -59,11 +59,11 @@ public class Exercise {
         this.weight = weight;
     }
 
-    public Boolean getDone() {
+    public boolean getDone() {
         return this.done;
     }
 
-    public void setDone(Boolean done) {
+    public void setDone(boolean done) {
         this.done = done;
     }
 

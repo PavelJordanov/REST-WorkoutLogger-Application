@@ -5,10 +5,9 @@ CREATE TABLE exercise
     sets int not null,
     reps int not null,
     weight float not null,
-    workout varchar(255) not null,
     done Boolean not null,
     primary key(id),
-    UNIQUE(name, sets, reps, weight, workout)
+    UNIQUE(name, sets, reps, weight)
 );
 
 CREATE TABLE workout
@@ -17,6 +16,15 @@ CREATE TABLE workout
     name varchar(255) not null,
     done Boolean not null,
     primary key(id)
+);
+
+CREATE TABLE workout_exercises
+(
+    workout_id varchar(255) not null,
+    exercise_id varchar(255) not null,
+    PRIMARY KEY (workout_id, exercise_id),
+    FOREIGN KEY (workout_id) REFERENCES workout(id) ON DELETE CASCADE,
+    FOREIGN KEY (exercise_id) REFERENCES exercise(id) ON DELETE CASCADE
 );
 
 CREATE TABLE week

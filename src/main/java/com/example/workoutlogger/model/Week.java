@@ -14,13 +14,13 @@ public class Week {
     // next week
 
     private String id;
-    private Boolean done;
+    private boolean done;
 
     List<Workout> workouts = new ArrayList<>();
 
     public Week() {}
 
-    public Week(String id, Boolean done) {
+    public Week(String id, boolean done) {
         this.id = id;
         this.done = false;
     }
@@ -33,11 +33,11 @@ public class Week {
         this.id = id;
     }
 
-    public Boolean getDone() {
+    public boolean getDone() {
         return this.done;
     }
 
-    public void setDone(Boolean done) {
+    public void setDone(boolean done) {
         this.done = done;
     }
 

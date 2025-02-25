@@ -6,18 +6,17 @@ import java.util.List;
 public class Program {
     private String id;
     private String name;
-    private Boolean done;
+    private boolean done;
 
     List<Week> weeks = new ArrayList<>();
 
     public Program() {}
 
-    public Program(String id, String name, Boolean done) {
+    public Program(String id, String name, boolean done) {
         this.id = id;
         this.name = name;
         this.done = false;
     }
-
 
     public String getId() {
         return this.id;
@@ -35,11 +34,11 @@ public class Program {
         this.name = name;
     }
 
-    public Boolean getDone() {
+    public boolean getDone() {
         return this.done;
     }
 
-    public void setDone(Boolean done) {
+    public void setDone(boolean done) {
         this.done = done;
     }
 
