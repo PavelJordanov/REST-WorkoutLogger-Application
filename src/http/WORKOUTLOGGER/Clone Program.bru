@@ -1,0 +1,19 @@
+meta {
+  name: Clone Program
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/program/clone/program1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "program2",
+    "name": "12 week hypertrophy",
+    "done": "FALSE"
+  }
+}

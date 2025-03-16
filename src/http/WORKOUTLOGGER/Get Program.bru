@@ -1,0 +1,19 @@
+meta {
+  name: Get Program
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8080/program/program 1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "program2",
+    "name": "12 week hypertrophy",
+    "done": "FALSE"
+  }
+}

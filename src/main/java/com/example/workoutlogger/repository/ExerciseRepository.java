@@ -53,7 +53,7 @@ public class ExerciseRepository {
     }
 
     public void batchInsert(List<Workout> workouts) {
-        String sql = "INSERT INTO exercise (id, workoutId, name, sets, reps, weight, done) " +
+        String sql = "INSERT INTO exercises (id, workoutId, name, sets, reps, weight, done) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         List<Object[]> batchArgs = workouts.stream().flatMap(workout ->

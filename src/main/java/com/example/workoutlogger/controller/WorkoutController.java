@@ -47,6 +47,16 @@ public class WorkoutController {
         return ResponseEntity.ok(workout);
     }
 
+    @PutMapping("/{id}/mark-done")
+    public ResponseEntity<String> markWorkoutAsDone(@PathVariable String id) {
+        try {
+            workoutService.markWorkoutAsDone(id);
+            return ResponseEntity.ok("Workout marked as done!");
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWorkoutById(@PathVariable String id) {
         workoutService.deleteById(id);

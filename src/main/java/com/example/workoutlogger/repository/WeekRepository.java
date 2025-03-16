@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.example.workoutlogger.model.Program;
 import com.example.workoutlogger.model.Week;
 
 @Repository
@@ -47,7 +48,7 @@ public class WeekRepository {
     }
 
     public void batchInsert(List<Week> weeks, String programId) {
-        String sql = "INSERT INTO week (id, programId, done) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO weeks (id, programId, done) VALUES (?, ?, ?)";
 
         List<Object[]> batchArgs = new ArrayList<>();
         for (Week week : weeks) {

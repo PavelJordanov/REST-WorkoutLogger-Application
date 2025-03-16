@@ -44,12 +44,12 @@ public class WorkoutRepository {
     }
     
     public int insert(Workout workout) {
-        return jdbcTemplate.update("INSERT INTO workout (id, weekId, name, done) VALUES (?, ?, ?, ?)", 
+        return jdbcTemplate.update("INSERT INTO workouts (id, weekId, name, done) VALUES (?, ?, ?, ?)", 
         workout.getId(), workout.getWeekId(), workout.getName(), workout.getDone());
     }
 
     public void batchInsert(List<Week> weeks) {
-        String sql = "INSERT INTO workout (id, weekId, name, done) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO workouts (id, weekId, name, done) VALUES (?, ?, ?, ?)";
 
         List<Object[]> batchArgs = weeks.stream().flatMap(week -> 
             week.getWorkouts().stream().map(workout ->

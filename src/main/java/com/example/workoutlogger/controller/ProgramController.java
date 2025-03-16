@@ -24,7 +24,7 @@ public class ProgramController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Program> getProgramById(@PathVariable String id) {
+    public ResponseEntity<Program> getProgramById(@PathVariable("id") String id) {
         Program program = programService.findById(id);
         if (program == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -41,14 +41,14 @@ public class ProgramController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Program> updateProgramById(@PathVariable String id, @RequestBody Program program) {
+    public ResponseEntity<Program> updateProgramById(@PathVariable("id") String id, @RequestBody Program program) {
         program.setId(id);
         programService.update(program);
         return ResponseEntity.ok(program);
     }
 
     @PutMapping("/{id}/mark-done")
-    public ResponseEntity<String> markProgramAsDone(@PathVariable String id) {
+    public ResponseEntity<String> markProgramAsDone(@PathVariable("id") String id) {
         try {
             programService.markProgramAsDone(id);
             return ResponseEntity.ok("Program marked as done!");
@@ -58,7 +58,7 @@ public class ProgramController {
     }
 
     @PostMapping("/clone/{id}")
-    public ResponseEntity<Program> cloneProgram(@PathVariable String id) {
+    public ResponseEntity<Program> cloneProgram(@PathVariable("id") String id) {
         try {
             Program cloned = programService.cloneAndInsertProgram(id);
             return ResponseEntity.ok(cloned);
@@ -70,7 +70,7 @@ public class ProgramController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProgramById(@PathVariable String id) {
+    public ResponseEntity<Void> deleteProgramById(@PathVariable("id") String id) {
         programService.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -25,6 +25,8 @@ dependencies {
 	implementation("com.h2database:h2")
 	implementation("org.hamcrest:hamcrest:3.0")
 	implementation("org.apache.commons:commons-lang3:3.0")
+	implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
+	implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

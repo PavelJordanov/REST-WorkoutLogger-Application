@@ -3,6 +3,7 @@ package com.example.workoutlogger.service.impl;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.io.IOException;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.commons.lang3.SerializationUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +65,7 @@ public class ProgramServiceImpl implements ProgramService, Serializable{
     @Transactional
     public Program cloneAndInsertProgram(String id) {
         //Find the original
-        Program original = programRepository.findById(id);
+        Program original = programRepository.findByIdFull(id);
         if (original == null) {
             throw new IllegalArgumentException("Program with id=" + id + " not found.");
         }
@@ -78,7 +80,7 @@ public class ProgramServiceImpl implements ProgramService, Serializable{
         
         // Insert Weeks
         weekRepository.batchInsert(cloned.getWeeks(), cloned.getId());
-
+        
         // For each Week, batch-insert Workouts
 
         List<Week> weeks = cloned.getWeeks();
@@ -92,20 +94,29 @@ public class ProgramServiceImpl implements ProgramService, Serializable{
     }
 
     public Program createProgramDeepClone(Program program) {
-        Program copiedProgram = (Program) SerializationUtils.clone(program);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Program copiedProgram = null;
+        try {
+            // 1) Serialize the original Program to JSON
+            String jsonString = objectMapper.writeValueAsString(program);
 
-        copiedProgram.setId(UUID.randomUUID().toString());
+            // 2) Deserialize JSON back into a new Program object
+            copiedProgram = objectMapper.readValue(jsonString, Program.class);
 
-        for (Week week: copiedProgram.getWeeks()) {
-            week.setId(UUID.randomUUID().toString());
-
-            for (Workout workout: week.getWorkouts()) {
-                workout.setId(UUID.randomUUID().toString());
-
-                for (Exercise exercise: workout.getExercises()) {
-                    exercise.setId(UUID.randomUUID().toString());
+            // 3) Assign new IDs to the cloned Program and all nested objects
+            copiedProgram.setId(UUID.randomUUID().toString());
+            for (Week week : copiedProgram.getWeeks()) {
+                week.setId(UUID.randomUUID().toString());
+                for (Workout workout : week.getWorkouts()) {
+                    workout.setId(UUID.randomUUID().toString());
+                    for (Exercise exercise : workout.getExercises()) {
+                        exercise.setId(UUID.randomUUID().toString());
+                    }
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // handle or rethrow as needed
         }
 
         return copiedProgram;
