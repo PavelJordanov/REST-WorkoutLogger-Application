@@ -10,6 +10,7 @@ public interface ProgramService{
     public void deleteById(String id);
     public int insert(Program program);
     public int update(Program program);
+    public Program cloneAndInsertProgram(String id);
     public Program createProgramDeepClone(Program program);
     void markProgramAsDone(String id);
 }

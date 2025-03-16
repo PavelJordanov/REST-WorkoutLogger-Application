@@ -1,6 +1,7 @@
 package com.example.workoutlogger.service.impl;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.io.Serializable;
 
@@ -30,6 +31,12 @@ import com.example.workoutlogger.service.ExerciseService;
 public class ProgramServiceImpl implements ProgramService, Serializable{
     @Autowired
     ProgramRepository programRepository;
+    @Autowired
+    WeekRepository weekRepository;
+    @Autowired
+    WorkoutRepository workoutRepository;
+    @Autowired
+    ExerciseRepository exerciseRepository;
 
     public List<Program> findAll() {
         return programRepository.findall();
@@ -50,6 +57,38 @@ public class ProgramServiceImpl implements ProgramService, Serializable{
 
     public int update(Program program) {
         return programRepository.update(program);
+    }
+
+    @Override
+    @Transactional
+    public Program cloneAndInsertProgram(String id) {
+        //Find the original
+        Program original = programRepository.findById(id);
+        if (original == null) {
+            throw new IllegalArgumentException("Program with id=" + id + " not found.");
+        }
+
+        // Deep clone the original
+        Program cloned = createProgramDeepClone(original);
+
+        // Insert the top-level Program row
+        programRepository.insert(cloned);
+
+        // Insert the nested objects in batches
+        
+        // Insert Weeks
+        weekRepository.batchInsert(cloned.getWeeks(), cloned.getId());
+
+        // For each Week, batch-insert Workouts
+
+        List<Week> weeks = cloned.getWeeks();
+        List<Workout> workouts = cloned.getWeeks().stream().flatMap(week -> week.getWorkouts().stream()).toList();
+
+        workoutRepository.batchInsert(weeks);
+        exerciseRepository.batchInsert(workouts);
+
+        // Return the fully cloned Program
+        return cloned;
     }
 
     public Program createProgramDeepClone(Program program) {

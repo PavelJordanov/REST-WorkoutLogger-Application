@@ -2,6 +2,7 @@ package com.example.workoutlogger.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.example.workoutlogger.model.Week;
 import com.example.workoutlogger.model.Workout;
 
 @Repository
@@ -44,6 +46,22 @@ public class WorkoutRepository {
     public int insert(Workout workout) {
         return jdbcTemplate.update("INSERT INTO workout (id, weekId, name, done) VALUES (?, ?, ?, ?)", 
         workout.getId(), workout.getWeekId(), workout.getName(), workout.getDone());
+    }
+
+    public void batchInsert(List<Week> weeks) {
+        String sql = "INSERT INTO workout (id, weekId, name, done) VALUES (?, ?, ?, ?)";
+
+        List<Object[]> batchArgs = weeks.stream().flatMap(week -> 
+            week.getWorkouts().stream().map(workout ->
+                new Object[] {
+                    workout.getId(),
+                    week.getId(),
+                    workout.getName(),
+                    workout.getDone()
+                }
+            ).toList().stream()
+        ).toList();
+        jdbcTemplate.batchUpdate(sql, batchArgs);
     }
 
     public int update(Workout workout) {

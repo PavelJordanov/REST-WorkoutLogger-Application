@@ -59,13 +59,14 @@ public class ProgramController {
 
     @PostMapping("/clone/{id}")
     public ResponseEntity<Program> cloneProgram(@PathVariable String id) {
-        Program original = programService.findById(id);
-        if (original == null) {
+        try {
+            Program cloned = programService.cloneAndInsertProgram(id);
+            return ResponseEntity.ok(cloned);
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        Program cloned = programService.createProgramDeepClone(original);
-        programService.insert(cloned);
-        return ResponseEntity.ok(cloned);
     }
 
     @DeleteMapping("/{id}")

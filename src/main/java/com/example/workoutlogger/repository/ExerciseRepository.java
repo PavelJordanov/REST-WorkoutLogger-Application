@@ -2,6 +2,7 @@ package com.example.workoutlogger.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.workoutlogger.model.Exercise;
+import com.example.workoutlogger.model.Workout;
 
 @Repository
 public class ExerciseRepository {
@@ -48,6 +50,27 @@ public class ExerciseRepository {
         return jdbcTemplate.update("INSERT INTO exercises (id, workoutId, name, sets, reps, weight, done) VALUES (?, ?, ?, ?, ?, ?, ?)", 
         exercise.getId(), exercise.getWorkoutId(), exercise.getName(), exercise.getSets(), exercise.getReps(), 
         exercise.getWeight(), exercise.getDone());
+    }
+
+    public void batchInsert(List<Workout> workouts) {
+        String sql = "INSERT INTO exercise (id, workoutId, name, sets, reps, weight, done) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        List<Object[]> batchArgs = workouts.stream().flatMap(workout ->
+            workout.getExercises().stream().map(exercise ->
+                new Object[] {
+                    exercise.getId(),
+                    workout.getId(),
+                    exercise.getName(),
+                    exercise.getSets(),
+                    exercise.getReps(),
+                    exercise.getWeight(),
+                    exercise.getDone()
+                }
+            ).toList().stream()
+        ).toList();
+        jdbcTemplate.batchUpdate(sql, batchArgs);
+
     }
 
     public int update(Exercise exercise) {
