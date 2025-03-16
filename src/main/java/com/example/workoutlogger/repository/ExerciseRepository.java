@@ -21,6 +21,7 @@ public class ExerciseRepository {
         public Exercise mapRow(ResultSet rs, int rowNum) throws SQLException {
             Exercise exercise = new Exercise();
             exercise.setId(rs.getString("id"));
+            exercise.setWorkoutId(rs.getString("workoutId"));
             exercise.setName(rs.getString("name"));
             exercise.setSets(rs.getInt("sets"));
             exercise.setReps(rs.getInt("reps"));
@@ -44,15 +45,15 @@ public class ExerciseRepository {
     }
     
     public int insert(Exercise exercise) {
-        return jdbcTemplate.update("INSERT INTO exercises (id, name, sets, reps, weight, done) VALUES (?, ?, ?, ?, ?, ?)", 
-        exercise.getId(), exercise.getName(), exercise.getSets(), exercise.getReps(), 
+        return jdbcTemplate.update("INSERT INTO exercises (id, workoutId, name, sets, reps, weight, done) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+        exercise.getId(), exercise.getWorkoutId(), exercise.getName(), exercise.getSets(), exercise.getReps(), 
         exercise.getWeight(), exercise.getDone());
     }
 
     public int update(Exercise exercise) {
         return jdbcTemplate.update(
-            "UPDATE exercises SET name = ?, sets = ?, reps = ?, weight = ?, done = ? WHERE id = ?",
-            exercise.getName(), exercise.getSets(), exercise.getReps(), exercise.getWeight(), 
+            "UPDATE exercises SET workoutId = ?, name = ?, sets = ?, reps = ?, weight = ?, done = ? WHERE id = ?",
+            exercise.getWorkoutId(), exercise.getName(), exercise.getSets(), exercise.getReps(), exercise.getWeight(), 
             exercise.getDone(), exercise.getId());
     }
 }

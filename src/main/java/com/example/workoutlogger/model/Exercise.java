@@ -1,7 +1,10 @@
 package com.example.workoutlogger.model;
 
-public class Exercise {
+import java.io.Serializable;
+
+public class Exercise implements Serializable{
     private String id;
+    private String workoutId;
     private String name;
     private int sets;
     private int reps;
@@ -10,8 +13,9 @@ public class Exercise {
 
     public Exercise() {}
 
-    public Exercise(String id, String name, int sets, int reps, float weight, boolean done) {
+    public Exercise(String id, String workoutId, String name, int sets, int reps, float weight, boolean done) {
         this.id = id;
+        this.workoutId = workoutId;
         this.name = name;
         this.sets = sets;
         this.reps = reps;
@@ -25,6 +29,14 @@ public class Exercise {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getWorkoutId() {
+        return this.workoutId;
+    }
+
+    public void setWorkoutId(String workoutId) {
+        this.workoutId = workoutId;
     }
 
     public String getName() {
@@ -71,6 +83,7 @@ public class Exercise {
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
+            ", workoutId='" + getWorkoutId() + "'" +
             ", name='" + getName() + "'" +
             ", sets='" + getSets() + "'" +
             ", reps='" + getReps() + "'" +

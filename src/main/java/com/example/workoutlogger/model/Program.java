@@ -2,8 +2,9 @@ package com.example.workoutlogger.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class Program {
+public class Program implements Serializable{
     private String id;
     private String name;
     private boolean done;

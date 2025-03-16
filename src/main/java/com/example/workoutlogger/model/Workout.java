@@ -2,10 +2,11 @@ package com.example.workoutlogger.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-
-public class Workout {
+public class Workout implements Serializable{
     private String id;
+    private String weekId;
     private String name;
     private boolean done;
     
@@ -14,8 +15,9 @@ public class Workout {
 
     public Workout() {}
 
-    public Workout(String id, String name, boolean done) {
+    public Workout(String id, String weekId, String name, boolean done) {
         this.id = id;
+        this.weekId = weekId;
         this.name = name;
         this.done = false;
     }
@@ -28,28 +30,20 @@ public class Workout {
         this.id = id;
     }
 
+    public String getWeekId() {
+        return this.weekId;
+    }
+
+    public void setWeekId(String weekId) {
+        this.weekId = weekId;
+    }
+
     public String getName() {
         return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Exercise> getExercises() {
-        return this.exercises;
-    }
-
-    public void setExercises(List<Exercise> exercises) {
-        this.exercises = exercises;
-    }
-
-    public void addExercise(Exercise exercise) {
-        exercises.add(exercise);
-    }
-
-    public void removeExercise(Exercise exercise) {
-            exercises.remove(exercise);
     }
 
     public boolean getDone() {
@@ -60,6 +54,14 @@ public class Workout {
         this.done = done;
     }
 
+    public List<Exercise> getExercises() {
+        return this.exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
     public boolean canBeMarkedAsDone() {
         return exercises.stream().allMatch(Exercise::getDone);
     }
@@ -68,9 +70,10 @@ public class Workout {
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
+            ", weekId='" + getWeekId() + "'" +
             ", name='" + getName() + "'" +
-            ", exercises='" + getExercises() + "'" +
             ", done='" + getDone() + "'" +
+            ", exercises='" + getExercises() + "'" +
             "}";
     }
 }

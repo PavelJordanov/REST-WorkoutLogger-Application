@@ -12,7 +12,7 @@ import com.example.workoutlogger.repository.WeekRepository;
 import com.example.workoutlogger.service.WeekService;
 
 @Service
-public class WeekServiceImpl implements WeekService {
+public class WeekServiceImpl implements WeekService{
     
     @Autowired
     WeekRepository weekRepository;

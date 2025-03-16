@@ -2,8 +2,9 @@ package com.example.workoutlogger.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class Week {
+public class Week implements Serializable{
     // Brainstorm area for this entity:
     // In a given week, A client will have:
     // 1) several workouts
@@ -14,14 +15,16 @@ public class Week {
     // next week
 
     private String id;
+    private String programId;
     private boolean done;
 
     List<Workout> workouts = new ArrayList<>();
 
     public Week() {}
 
-    public Week(String id, boolean done) {
+    public Week(String id, String programId, boolean done) {
         this.id = id;
+        this.programId = programId;
         this.done = false;
     }
 
@@ -31,6 +34,14 @@ public class Week {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getProgramId() {
+        return this.programId;
+    }
+
+    public void setProgramId(String programId) {
+        this.programId = programId;
     }
 
     public boolean getDone() {
@@ -57,6 +68,7 @@ public class Week {
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
+            ", programId='" + getProgramId() + "'" +
             ", done='" + getDone() + "'" +
             ", workouts='" + getWorkouts() + "'" +
             "}";

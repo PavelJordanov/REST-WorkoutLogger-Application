@@ -24,6 +24,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-devtools")
 	implementation("com.h2database:h2")
 	implementation("org.hamcrest:hamcrest:3.0")
+	implementation("org.apache.commons:commons-lang3:3.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
